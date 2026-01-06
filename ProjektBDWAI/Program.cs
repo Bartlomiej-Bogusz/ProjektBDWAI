@@ -1,4 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using ProjektBDWAI.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ProjektBDWAIContextConnection") ?? throw new InvalidOperationException("Connection string 'ProjektBDWAIContextConnection' not found.");;
+
+builder.Services.AddDbContext<ProjektBDWAIContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<ProjektBDWAIUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ProjektBDWAIContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
