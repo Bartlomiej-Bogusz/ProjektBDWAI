@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ProjektBDWAI.Areas.Identity.Data;
 using ProjektBDWAI.Data;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProjektBDWAIContextConnection") ?? throw new InvalidOperationException("Connection string 'ProjektBDWAIContextConnection' not found.");;
@@ -20,7 +21,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.MapRazorPages();
 app.UseHttpsRedirection();
 app.UseRouting();
 

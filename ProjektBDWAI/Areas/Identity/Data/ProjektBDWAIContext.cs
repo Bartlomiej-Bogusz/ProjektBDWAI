@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProjektBDWAI.Areas.Identity.Data;
 
 namespace ProjektBDWAI.Data;
@@ -10,6 +11,13 @@ public class ProjektBDWAIContext : IdentityDbContext<ProjektBDWAIUser>
     public ProjektBDWAIContext(DbContextOptions<ProjektBDWAIContext> options)
         : base(options)
     {
+    }
+
+    public void Configure(EntityTypeBuilder<ProjektBDWAIUser> builder)
+    {
+        builder.Property(x => x.FirstName).HasMaxLength(255);
+        builder.Property(x => x.LastName).HasMaxLength(255);
+
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
