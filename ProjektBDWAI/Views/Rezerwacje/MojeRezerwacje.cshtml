@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Rezerwacja>
+
+<h2>Moje rezerwacje</h2>
+
+<table class="table">
+    @foreach (var r in Model)
+    {
+        <tr>
+            <td>@r.Samochod.Marka @r.Samochod.Model</td>
+            <td>@r.Status</td>
+            <td>
+                @if (r.Status == StatusRezerwacji.Oczekujaca)
+                {
+                    <form asp-action="Zaplac" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@r.Id" />
+                        <button class="btn btn-primary">Zapłać</button>
+                    </form>
+
+                    <form asp-action="Anuluj" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@r.Id" />
+                        <button class="btn btn-danger">Anuluj</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+</table>

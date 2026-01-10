@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjektBDWAI.Data;
 
@@ -11,9 +12,11 @@ using ProjektBDWAI.Data;
 namespace ProjektBDWAI.Migrations
 {
     [DbContext(typeof(ProjektBDWAIContext))]
-    partial class ProjektBDWAIContextModelSnapshot : ModelSnapshot
+    [Migration("20260110170818_InitCars")]
+    partial class InitCars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,7 +254,8 @@ namespace ProjektBDWAI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RezerwacjaId");
+                    b.HasIndex("RezerwacjaId")
+                        .IsUnique();
 
                     b.ToTable("Platnosci");
                 });
@@ -264,13 +268,13 @@ namespace ProjektBDWAI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DataUtworzenia")
+                    b.Property<DateTime>("DataDo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataOd")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("SamochodId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -368,8 +372,8 @@ namespace ProjektBDWAI.Migrations
             modelBuilder.Entity("ProjektBDWAI.Models.Platnosc", b =>
                 {
                     b.HasOne("ProjektBDWAI.Models.Rezerwacja", "Rezerwacja")
-                        .WithMany()
-                        .HasForeignKey("RezerwacjaId")
+                        .WithOne("Platnosc")
+                        .HasForeignKey("ProjektBDWAI.Models.Platnosc", "RezerwacjaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -385,6 +389,12 @@ namespace ProjektBDWAI.Migrations
                         .IsRequired();
 
                     b.Navigation("Samochod");
+                });
+
+            modelBuilder.Entity("ProjektBDWAI.Models.Rezerwacja", b =>
+                {
+                    b.Navigation("Platnosc")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjektBDWAI.Models.Samochod", b =>

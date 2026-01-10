@@ -35,4 +35,13 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ProjektBDWAIContext>();
+    DbInitializer.Seed(context);
+}
+
+
+
+
 app.Run();

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProjektBDWAI.Areas.Identity.Data;
+using ProjektBDWAI.Models;
 
 namespace ProjektBDWAI.Data;
 
@@ -27,4 +28,9 @@ public class ProjektBDWAIContext : IdentityDbContext<ProjektBDWAIUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+
+    public DbSet<Samochod> Samochody { get; set; }
+    public DbSet<Rezerwacja> Rezerwacje { get; set; }
+    public DbSet<Platnosc> Platnosci { get; set; }
 }

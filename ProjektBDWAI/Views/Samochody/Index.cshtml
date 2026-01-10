@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Samochod>
+
+<h2>Dostępne samochody</h2>
+
+<table class="table">
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.Marka @s.Model</td>
+            <td>@s.CenaZaDzien zł / dzień</td>
+            <td>
+                <form asp-action="Zarezerwuj" method="post">
+                    <input type="hidden" name="samochodId" value="@s.Id" />
+                    <button class="btn btn-success">Zarezerwuj</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
