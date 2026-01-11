@@ -1,0 +1,81 @@
+﻿@model AdminDashboardViewModel
+
+<h2>Panel administratora</h2>
+
+<hr />
+
+<h3>Użytkownicy</h3>
+<table class="table table-sm">
+    <tr>
+        <th>Email</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+    </tr>
+    @foreach (var u in Model.Uzytkownicy)
+    {
+        <tr>
+            <td>@u.Email</td>
+            <td>@u.FirstName</td>
+            <td>@u.LastName</td>
+        </tr>
+    }
+</table>
+
+<hr />
+
+<h3>Samochody</h3>
+<table class="table table-sm">
+    <tr>
+        <th>Marka</th>
+        <th>Model</th>
+        <th>Dostępny</th>
+    </tr>
+    @foreach (var s in Model.Samochody)
+    {
+        <tr>
+            <td>@s.Marka</td>
+            <td>@s.Model</td>
+            <td>@(s.Dostepny ? "Tak" : "Nie")</td>
+        </tr>
+    }
+</table>
+
+<a asp-controller="AdminSamochody" asp-action="Index" class="btn btn-primary">
+    Zarządzaj samochodami
+</a>
+
+<hr />
+
+<h3>Rezerwacje</h3>
+<table class="table table-sm">
+    <tr>
+        <th>Samochód</th>
+        <th>Status</th>
+        <th>UserId</th>
+    </tr>
+    @foreach (var r in Model.Rezerwacje)
+    {
+        <tr>
+            <td>@r.Samochod?.Marka @r.Samochod?.Model</td>
+            <td>@r.Status</td>
+            <td>@r.UserId</td>
+        </tr>
+    }
+</table>
+
+<hr />
+
+<h3>Płatności</h3>
+<table class="table table-sm">
+    <tr>
+        <th>Kwota</th>
+        <th>Samochód</th>
+    </tr>
+    @foreach (var p in Model.Platnosci)
+    {
+        <tr>
+            <td>@p.Kwota zł</td>
+            <td>@p.Rezerwacja?.Samochod?.Marka</td>
+        </tr>
+    }
+</table>

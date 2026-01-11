@@ -1,0 +1,33 @@
+﻿@model Samochod
+
+<h2>Dodaj samochód</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Marka"></label>
+        <input asp-for="Marka" class="form-control" />
+        <span asp-validation-for="Marka" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Model"></label>
+        <input asp-for="Model" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CenaZaDzien"></label>
+        <input asp-for="CenaZaDzien" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Dostepny"></label>
+        <input asp-for="Dostepny" />
+    </div>
+
+    <button class="btn btn-success">Zapisz</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

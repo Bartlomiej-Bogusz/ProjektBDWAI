@@ -7,7 +7,7 @@ var connectionString = builder.Configuration.GetConnectionString("ProjektBDWAICo
 
 builder.Services.AddDbContext<ProjektBDWAIContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<ProjektBDWAIUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ProjektBDWAIContext>();
+builder.Services.AddDefaultIdentity<ProjektBDWAIUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<ProjektBDWAIContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -39,6 +39,9 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ProjektBDWAIContext>();
     DbInitializer.Seed(context);
+
+    var services = scope.ServiceProvider;
+    await IdentitySeeder.SeedAsync(services);
 }
 
 

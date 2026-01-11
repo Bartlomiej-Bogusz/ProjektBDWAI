@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Samochod>
+
+<h2>Zarządzanie samochodami</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Dodaj samochód</a>
+</p>
+
+<table class="table">
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.Marka</td>
+            <td>@s.Model</td>
+            <td>@(s.Dostepny ? "Tak" : "Nie")</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@s.Id">Edytuj</a> |
+                <a asp-action="Delete" asp-route-id="@s.Id">Usuń</a>
+            </td>
+        </tr>
+    }
+</table>

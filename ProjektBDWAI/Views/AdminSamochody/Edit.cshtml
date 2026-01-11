@@ -1,0 +1,34 @@
+﻿@model Samochod
+
+<h2>Edytuj samochód</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Marka"></label>
+        <input asp-for="Marka" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Model"></label>
+        <input asp-for="Model" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CenaZaDzien"></label>
+        <input asp-for="CenaZaDzien" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Dostepny"></label>
+        <input asp-for="Dostepny" />
+    </div>
+
+    <button class="btn btn-primary">Zapisz zmiany</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
