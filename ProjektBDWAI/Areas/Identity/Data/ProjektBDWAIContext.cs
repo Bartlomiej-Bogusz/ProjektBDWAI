@@ -33,4 +33,5 @@ public class ProjektBDWAIContext : IdentityDbContext<ProjektBDWAIUser>
     public DbSet<Samochod> Samochody { get; set; }
     public DbSet<Rezerwacja> Rezerwacje { get; set; }
     public DbSet<Platnosc> Platnosci { get; set; }
+    public DbSet<Opinia> Opinie { get; set; }
 }

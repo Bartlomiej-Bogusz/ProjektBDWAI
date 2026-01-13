@@ -2,13 +2,11 @@
 
 <h2>Usuń samochód</h2>
 
-<p>Czy na pewno chcesz usunąć ten samochód?</p>
-
+<p>Czy na pewno chcesz usunąć?</p>
 <strong>@Model.Marka @Model.Model</strong>
 
 <form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
-    <br />
-    <button class="btn btn-danger">Usuń</button>
-    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+    <button type="submit" class="btn btn-danger">Usuń</button>
 </form>

@@ -19,6 +19,6 @@ namespace ProjektBDWAI.Models
 
         public bool Dostepny { get; set; }
 
-        public ICollection<Rezerwacja> Rezerwacje { get; set; }
+        public ICollection<Rezerwacja> Rezerwacje { get; set; } = new List<Rezerwacja>();
     }
 }

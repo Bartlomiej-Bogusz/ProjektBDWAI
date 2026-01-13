@@ -3,10 +3,14 @@
 <h2>Dodaj samochód</h2>
 
 <form asp-action="Create" method="post">
+    <span asp-validation-summary="All" class="text-danger"></span>
+    @Html.AntiForgeryToken()
+
+    <span asp-validation-summary="All" class="text-danger"></span>
+
     <div class="form-group">
         <label asp-for="Marka"></label>
         <input asp-for="Marka" class="form-control" />
-        <span asp-validation-for="Marka" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -16,16 +20,15 @@
 
     <div class="form-group">
         <label asp-for="CenaZaDzien"></label>
-        <input asp-for="CenaZaDzien" class="form-control" />
+        <input asp-for="CenaZaDzien" type="number" class="form-control" />
     </div>
 
-    <div class="form-group">
-        <label asp-for="Dostepny"></label>
-        <input asp-for="Dostepny" />
+    <div class="form-check">
+        <input asp-for="Dostepny" class="form-check-input" />
+        <label asp-for="Dostepny" class="form-check-label"></label>
     </div>
 
-    <button class="btn btn-success">Zapisz</button>
-    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+    <button type="submit" class="btn btn-success">Zapisz</button>
 </form>
 
 @section Scripts {

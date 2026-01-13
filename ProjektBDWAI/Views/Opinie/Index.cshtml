@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Opinia>
+
+<h2>Opinie użytkowników</h2>
+
+<hr />
+
+<h4>Dodaj opinię</h4>
+
+<form asp-action="Dodaj" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>Opinia (opcjonalnie)</label>
+        <textarea name="Tresc" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Ocena (1–5)</label>
+        <select name="Ocena" class="form-control" required>
+            <option value="">-- wybierz --</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Dodaj opinię</button>
+</form>
+
+<hr />
+
+<h4>Lista opinii</h4>
+
+@foreach (var o in Model)
+{
+    <div class="border p-2 mb-2">
+        <strong>@o.User.UserName</strong>
+        <span> | Ocena: @o.Ocena</span>
+        <br />
+        <small>@o.DataDodania</small>
+
+        <p>@o.Tresc</p>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <form asp-action="Usun" method="post" style="display:inline">
+                <input type="hidden" name="id" value="@o.Id" />
+                <button class="btn btn-danger btn-sm">Usuń</button>
+            </form>
+        }
+    </div>
+}

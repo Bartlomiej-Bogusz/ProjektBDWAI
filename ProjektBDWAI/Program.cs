@@ -2,8 +2,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjektBDWAI.Areas.Identity.Data;
 using ProjektBDWAI.Data;
+using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProjektBDWAIContextConnection") ?? throw new InvalidOperationException("Connection string 'ProjektBDWAIContextConnection' not found.");;
+
+//API
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ProjektBDWAIContext>(options => options.UseSqlServer(connectionString));
 
@@ -13,6 +19,7 @@ builder.Services.AddDefaultIdentity<ProjektBDWAIUser>(options => options.SignIn.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -44,7 +51,16 @@ using (var scope = app.Services.CreateScope())
     await IdentitySeeder.SeedAsync(services);
 }
 
+var cultureInfo = new CultureInfo("pl-PL");
+
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 
+//API
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.MapControllers();
 
 app.Run();

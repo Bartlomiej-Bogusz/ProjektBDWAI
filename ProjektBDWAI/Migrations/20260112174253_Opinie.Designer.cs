@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjektBDWAI.Data;
 
@@ -11,9 +12,11 @@ using ProjektBDWAI.Data;
 namespace ProjektBDWAI.Migrations
 {
     [DbContext(typeof(ProjektBDWAIContext))]
-    partial class ProjektBDWAIContextModelSnapshot : ModelSnapshot
+    [Migration("20260112174253_Opinie")]
+    partial class Opinie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,6 +173,12 @@ namespace ProjektBDWAI.Migrations
                     b.Property<DateTime>("DataDodania")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FirstNameId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LastNameId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Ocena")
                         .HasColumnType("int");
 
@@ -179,11 +188,13 @@ namespace ProjektBDWAI.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("FirstNameId");
+
+                    b.HasIndex("LastNameId");
 
                     b.ToTable("Opinie");
                 });
@@ -396,13 +407,17 @@ namespace ProjektBDWAI.Migrations
 
             modelBuilder.Entity("Opinia", b =>
                 {
-                    b.HasOne("ProjektBDWAI.Areas.Identity.Data.ProjektBDWAIUser", "User")
+                    b.HasOne("ProjektBDWAI.Areas.Identity.Data.ProjektBDWAIUser", "FirstName")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FirstNameId");
 
-                    b.Navigation("User");
+                    b.HasOne("ProjektBDWAI.Areas.Identity.Data.ProjektBDWAIUser", "LastName")
+                        .WithMany()
+                        .HasForeignKey("LastNameId");
+
+                    b.Navigation("FirstName");
+
+                    b.Navigation("LastName");
                 });
 
             modelBuilder.Entity("ProjektBDWAI.Models.Platnosc", b =>
