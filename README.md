@@ -1,4 +1,4 @@
-# ProjektBDWAI — Instrukcja uruchomienia
+# ProjektBDWAI Wypożyczalnia Samochodów — Instrukcja uruchomienia
 
 Aplikacja ASP.NET Core Razor Pages (.NET 10) z wbudowanym Identity, EF Core i SQL Server.
 
