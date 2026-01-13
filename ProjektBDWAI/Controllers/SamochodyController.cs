@@ -25,11 +25,13 @@ public class SamochodyController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Zarezerwuj(int samochodId)
+    public async Task<IActionResult> Zarezerwuj(int samochodId, int dni = 1)
     {
         var samochod = await _context.Samochody.FindAsync(samochodId);
         if (samochod == null || !samochod.Dostepny)
             return NotFound();
+
+        if (dni < 1) dni = 1;
 
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -37,7 +39,8 @@ public class SamochodyController : Controller
         {
             SamochodId = samochodId,
             UserId = userId,
-            Status = StatusRezerwacji.Oczekujaca
+            Status = StatusRezerwacji.Oczekujaca,
+            Dni = dni
         };
 
         samochod.Dostepny = false;

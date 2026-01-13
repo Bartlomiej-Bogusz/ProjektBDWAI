@@ -25,5 +25,8 @@ namespace ProjektBDWAI.Models
         public string UserId { get; set; }
 
         public StatusRezerwacji Status { get; set; }
+
+        [Range(1, 365)]
+        public int Dni { get; set; } = 1;
     }
 }

@@ -30,10 +30,25 @@ public class RezerwacjeController : Controller
     [HttpPost]
     public async Task<IActionResult> Zaplac(int id)
     {
-        var rezerwacja = await _context.Rezerwacje.FindAsync(id);
+        var rezerwacja = await _context.Rezerwacje
+            .Include(r => r.Samochod)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
         if (rezerwacja == null) return NotFound();
 
+        // utwórz płatność na podstawie ceny za dzień * dni rezerwacji
+        var kwota = rezerwacja.Samochod.CenaZaDzien * rezerwacja.Dni;
+
+        var platnosc = new Platnosc
+        {
+            Kwota = kwota,
+            DataPlatnosci = DateTime.Now,
+            RezerwacjaId = rezerwacja.Id
+        };
+
         rezerwacja.Status = StatusRezerwacji.Zaplacona;
+
+        _context.Platnosci.Add(platnosc);
         await _context.SaveChangesAsync();
 
         return RedirectToAction(nameof(MojeRezerwacje));
